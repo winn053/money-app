@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
+  color: green;
+}
+
+main {
+  margin-left: 25%;
+  padding: 20px;
+  width: 50%;
+}
+
+h1 {
+  text-align: center;
+  margin: 50px;
+}
+
+.enter-amount {
+  /* display: flex;
+  justify-content: center; */
+}
+
+.amount-form-title {
+  margin-top: 20px;
+  /* margin-left: 400px; */
+}
+
+#spending-form,
+#search-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+#spending-form button {
+  padding: 3px;
+  margin-top: 15px;
+  height: fit-content;
+}
+
+.total-spending {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px inherit;
+  width: 200px;
+}
+
+#total-spending-button,
+#total-spending-output {
+  margin: 20px inherit;
+  padding: 3px;
+}
+
+.search button {
+  margin: 20px inherit;
+  padding: 3px;
+}
+
+table,
+tbody,
+th,
+td {
+  border: none;
+  border-bottom: 1px solid lightgray;
+  border-collapse: collapse;
+}
+
+table {
+  width: 100%;
+}
+
+th,
+td {
+  padding: 5px;
+}
+
+th {
+  text-align: left;
+}
+
+tbody tr:hover {
+  background-color: lightgreen;
+}

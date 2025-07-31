@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Money Tracker</title>
+  </head>
+  <body>
+    <main>
+      <h1>Money Tracker</h1>
+      <section class="enter-amount">
+        <h2 class="amount-form-title">Enter Amount Spent</h2>
+        <br />
+        <form id="spending-form">
+          <div class="form-element">
+            <label for="amount">Amount: </label>
+            <input
+              type="text"
+              name="amount"
+              id="amount"
+              pattern="^\$?\d+(\.\d{2})?$"
+              value=""
+              data-type="currency"
+              required
+            />
+          </div>
+          <div class="form-element">
+            <label for="money-type">Source: </label>
+            <select name="money-type" id="money-type">
+              <option value="cash">Cash</option>
+              <option value="credit">Credit</option>
+              <option value="check">Check</option>
+              <option value="zelle">Zelle</option>
+            </select>
+          </div>
+          <div class="form-element">
+            <label for="spend-date">Date: </label>
+            <input type="date" name="spend-date" id="spend-date" required />
+          </div>
+          <div class="form-element">
+            <label for="spend-description">Description: </label>
+            <textarea
+              name="spend-description"
+              id="spend-description"
+            ></textarea>
+          </div>
+          <div class="form-button">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="total-spending">
+        <button id="total-spending-button">Get total spending</button>
+        <p id="total-spending-output"></p>
+      </section>
+
+      <section class="search">
+        <button id="search-button">Search Transactions</button>
+
+        <div id="search-div" hidden>
+          <form id="search-form">
+            <div>
+              <label for="search-amount">Amount: </label>
+              <input
+                type="text"
+                name="search-amount"
+                id="search-amount"
+                pattern="^\$?\d+(\.\d{2})?$"
+                value=""
+                data-type="currency"
+              />
+            </div>
+            <div>
+              <label for="search-source">Type: </label>
+              <select name="search-source" id="search-source">
+                <option value="any">Any</option>
+                <option value="cash">Cash</option>
+                <option value="credit">Credit</option>
+                <option value="check">Check</option>
+                <option value="zelle">Zelle</option>
+              </select>
+            </div>
+            <div>
+              <label for="search-from">From: </label>
+              <input type="date" name="search-from" id="search-from" />
+            </div>
+            <div>
+              <label for="search-to">To: </label>
+              <input type="date" name="search-to" id="search-to" />
+            </div>
+            <div>
+              <button type="submit">Search</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="search-table-section" hidden>
+        <h2>Transactions</h2>
+        <table id="search-table">
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+        </table>
+      </section>
+    </main>
+  </body>
+  <script src="index.js"></script>
+  <script src="search.js"></script>
+</html>
