@@ -1,4 +1,5 @@
 const searchButton = document.getElementById('search-button');
+const searchClearButton = document.getElementById('clear-search-button');
 const searchDiv = document.getElementById('search-div');
 const searchForm = document.getElementById('search-form');
 const searchAmount = document.getElementById('search-amount');
@@ -7,9 +8,13 @@ const searchFrom = document.getElementById('search-from');
 const searchTo = document.getElementById('search-to');
 const searchTableSection = document.getElementById('search-table-section');
 const searchTable = document.getElementById('search-table');
+const searchTableBody = document.getElementById('search-table-body');
 
-function openSearchForm() {
-  searchDiv.hidden = false;
+function toggleSearchForm() {
+  searchDiv.hidden = !searchDiv.hidden;
+  if (searchDiv.hidden) {
+    clearSearchTable();
+  }
 }
 
 function doSearch(formData, savedData) {
@@ -35,6 +40,7 @@ function doSearch(formData, savedData) {
 
 function startSearch(e) {
   let searchData = [];
+  clearSearchTable();
 
   e.preventDefault();
 
@@ -48,12 +54,12 @@ function startSearch(e) {
   const storedFormData =
     JSON.parse(localStorage.getItem('moneyTrackerFormData')) || [];
 
-  console.log(formData.amount);
-  console.log(formData.source);
-  console.log(formData.dateFrom);
-  console.log(formData.dateTo);
+  // console.log(formData.amount);
+  // console.log(formData.source);
+  // console.log(formData.dateFrom);
+  // console.log(formData.dateTo);
 
-  console.log(storedFormData);
+  // console.log(storedFormData);
 
   if (
     formData.amount === '' &&
@@ -64,12 +70,10 @@ function startSearch(e) {
     searchData = storedFormData; // shallow copy
   } else {
     searchData = doSearch(formData, storedFormData);
-    console.log(searchData);
+    // console.log(searchData);
   }
 
   if (searchData) {
-    const tableBody = document.createElement('tbody');
-
     for (let i = 0; i < searchData.length; i++) {
       const row = document.createElement('tr');
 
@@ -93,15 +97,23 @@ function startSearch(e) {
       cell.appendChild(cellText);
       row.appendChild(cell);
 
-      tableBody.appendChild(row);
+      searchTableBody.appendChild(row);
     }
 
-    searchTable.appendChild(tableBody);
-    searchTable.setAttribute('border', '1');
+    // searchTable.setAttribute('border', '1');
 
     searchTableSection.hidden = false;
   }
 }
 
-searchButton.addEventListener('click', openSearchForm);
+function clearSearchTable() {
+  while (searchTableBody.firstChild) {
+    searchTableBody.lastChild.remove();
+  }
+
+  searchTableSection.hidden = true;
+}
+
+searchButton.addEventListener('click', toggleSearchForm);
 searchForm.addEventListener('submit', startSearch);
+searchClearButton.addEventListener('click', clearSearchTable);
