@@ -97,6 +97,17 @@ function startSearch(e) {
       cell.appendChild(cellText);
       row.appendChild(cell);
 
+      cell = document.createElement('button');
+      cellText = document.createTextNode('Edit');
+      cell.addEventListener('click', editTransactionRow);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      cell = document.createElement('button');
+      cellText = document.createTextNode('Delete');
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
       searchTableBody.appendChild(row);
     }
 
@@ -112,6 +123,12 @@ function clearSearchTable() {
   }
 
   searchTableSection.hidden = true;
+}
+
+function editTransactionRow() {
+  console.log('Edit data: ', this.parentNode);
+  getEditData(this.parentNode);
+  editModal.showModal();
 }
 
 searchButton.addEventListener('click', toggleSearchForm);

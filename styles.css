@@ -13,6 +13,7 @@ main {
   margin-left: 25%;
   padding: 20px;
   width: 50%;
+  min-height: calc(100vh - 40px);
 }
 
 h1 {
@@ -84,4 +85,24 @@ th {
 
 tbody tr:hover {
   background-color: lightgreen;
+}
+
+tr button {
+  padding: 3px;
+  margin: 3px;
+}
+
+footer {
+  text-align: center;
+}
+
+dialog {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Dim the background */
 }
