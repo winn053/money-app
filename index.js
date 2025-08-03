@@ -7,11 +7,15 @@ const totalSpendingButton = document.getElementById('total-spending-button');
 const totalSpendingOutput = document.getElementById('total-spending-output');
 
 spendDate.max = new Date().toISOString().split('T')[0];
+let currentKey =
+  JSON.parse(localStorage.getItem('moneyTrackerFormData')).length || 0;
 
 function submitSpendingForm(e) {
   e.preventDefault();
 
+  console.log('this.key = ', currentKey);
   const formData = {
+    key: currentKey,
     amount: amountInput.value,
     source: amountSourceInput.value,
     date: spendDate.value,
@@ -27,6 +31,8 @@ function saveFormData(formData) {
     JSON.parse(localStorage.getItem('moneyTrackerFormData')) || [];
 
   storedFormData.push(formData);
+
+  currentKey++;
 
   localStorage.setItem('moneyTrackerFormData', JSON.stringify(storedFormData));
 }
@@ -118,6 +124,8 @@ function getSpendingAmount() {
     (total, current) => total + Number(current.amount),
     0
   );
+
+  console.log('Get spending amount = ', totalSpent);
 
   totalSpendingOutput.textContent = `$${totalSpent}`;
 }
