@@ -7,8 +7,17 @@ const totalSpendingButton = document.getElementById('total-spending-button');
 const totalSpendingOutput = document.getElementById('total-spending-output');
 
 spendDate.max = new Date().toISOString().split('T')[0];
-let currentKey =
-  JSON.parse(localStorage.getItem('moneyTrackerFormData')).length || 0;
+
+let currentKey = 0;
+(function () {
+  const storedFormData =
+    JSON.parse(localStorage.getItem('moneyTrackerFormData')) || [];
+
+  if (storedFormData) {
+    currentKey = storedFormData.at(-1)?.key + 1; // one more than current max key
+    // console.log(currentKey);
+  }
+})();
 
 function submitSpendingForm(e) {
   e.preventDefault();
@@ -32,9 +41,9 @@ function saveFormData(formData) {
 
   storedFormData.push(formData);
 
-  currentKey++;
-
   localStorage.setItem('moneyTrackerFormData', JSON.stringify(storedFormData));
+
+  currentKey++;
 }
 
 function clearForm() {
