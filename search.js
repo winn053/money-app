@@ -78,7 +78,13 @@ function startSearch(e) {
       const row = document.createElement('tr');
 
       let cell = document.createElement('td');
-      let cellText = document.createTextNode(searchData[i].amount);
+      cell.setAttribute('hidden', 1);
+      let cellText = document.createTextNode(searchData[i].key);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      cell = document.createElement('td');
+      cellText = document.createTextNode(searchData[i].amount);
       cell.appendChild(cellText);
       row.appendChild(cell);
 
@@ -105,6 +111,7 @@ function startSearch(e) {
 
       cell = document.createElement('button');
       cellText = document.createTextNode('Delete');
+      cell.addEventListener('click', deleteTransactionRow);
       cell.appendChild(cellText);
       row.appendChild(cell);
 
@@ -119,6 +126,11 @@ function startSearch(e) {
 
 function clearSearchTable() {
   while (searchTableBody.firstChild) {
+    searchTableBody.lastChild.removeEventListener('click', editTransactionRow);
+    searchTableBody.lastChild.removeEventListener(
+      'click',
+      deleteTransactionRow
+    );
     searchTableBody.lastChild.remove();
   }
 
@@ -129,6 +141,10 @@ function editTransactionRow() {
   console.log('Edit data: ', this.parentNode);
   getEditData(this.parentNode);
   editModal.showModal();
+}
+
+function deleteTransactionRow() {
+  return;
 }
 
 searchButton.addEventListener('click', toggleSearchForm);

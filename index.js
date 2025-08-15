@@ -22,7 +22,6 @@ let currentKey = 0;
 function submitSpendingForm(e) {
   e.preventDefault();
 
-  console.log('this.key = ', currentKey);
   const formData = {
     key: currentKey,
     amount: amountInput.value,
@@ -49,7 +48,7 @@ function saveFormData(formData) {
 function clearForm() {
   amountInput.value = '';
   amountSourceInput.selectedIndex = 0;
-  spendDate.value = null;
+  spendDate.value = '';
   spendDesc.value = '';
 }
 
