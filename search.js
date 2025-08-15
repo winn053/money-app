@@ -118,8 +118,6 @@ function startSearch(e) {
       searchTableBody.appendChild(row);
     }
 
-    // searchTable.setAttribute('border', '1');
-
     searchTableSection.hidden = false;
   }
 }
@@ -138,7 +136,7 @@ function clearSearchTable() {
 }
 
 function editTransactionRow() {
-  console.log('Edit data: ', this.parentNode);
+  // console.log('Edit data: ', this.parentNode);
   getEditData(this.parentNode);
   editModal.showModal();
 }

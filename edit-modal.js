@@ -8,20 +8,20 @@ const editSpendDate = document.getElementById('edit-spend-date');
 const editSpendDesc = document.getElementById('edit-spend-description');
 
 function getEditData(row) {
-  console.log('getEditData row = ', row);
+  // console.log('getEditData row = ', row);
   // const editData = row.children.map(() => this.value);
-  console.log(row.children);
-  editKey.value = row.children[0].textContent;
-  editAmountInput.value = row.children[1].textContent;
-  editAmountSourceInput.value = row.children[2].textContent;
-  editSpendDate.value = row.children[3].textContent;
-  editSpendDesc.textContent = row.children[4].textContent;
+  // console.log(row.children);
+  editKey.value = row?.children[0].textContent;
+  editAmountInput.value = row?.children[1].textContent;
+  editAmountSourceInput.value = row?.children[2].textContent;
+  editSpendDate.value = row?.children[3].textContent;
+  editSpendDesc.textContent = row?.children[4].textContent;
 
-  console.log(editKey.value);
-  console.log(editAmountInput.value);
-  console.log(editAmountSourceInput.value);
-  console.log(editSpendDate.value);
-  console.log(editSpendDesc.textContent);
+  // console.log(editKey.value);
+  // console.log(editAmountInput.value);
+  // console.log(editAmountSourceInput.value);
+  // console.log(editSpendDate.value);
+  // console.log(editSpendDesc.textContent);
 }
 
 function editModalSubmitHandler(e) {
@@ -62,13 +62,12 @@ function saveEditFormData(formData) {
   }
 
   storedFormData.splice(index, 1, formData);
-  console.log('storedFormData', storedFormData);
+  // console.log('storedFormData', storedFormData);
 
   localStorage.setItem('moneyTrackerFormData', JSON.stringify(storedFormData));
 }
 
-function editModalCancelHandler(e) {
-  e.preventDefault();
+function editModalCancelHandler() {
   editModal.close();
 }
 

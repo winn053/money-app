@@ -1,14 +1,13 @@
-const deleteRowSection = document.getElementById('delete-row-section');
 const deleteRowModal = document.getElementById('delete-modal');
 const deleteKey = document.getElementById('delete-key');
 const deleteYesButton = document.getElementById('delete-yes-button');
 const deleteNoButton = document.getElementById('delete-no-button');
 
 function getDeletionKeyValue(row) {
-  console.log('getDeletionKeyValue row = ', row);
-  console.log(row.children);
-  deleteKey.value = row.children[0].textContent;
-  console.log(deleteKey.value);
+  // console.log('getDeletionKeyValue row = ', row);
+  // console.log(row.children);
+  deleteKey.value = row?.children[0].textContent;
+  // console.log(deleteKey.value);
 }
 
 function deleteData(formData) {
@@ -16,11 +15,11 @@ function deleteData(formData) {
     JSON.parse(localStorage.getItem('moneyTrackerFormData')) || [];
 
   // console.log('storedFormData: ', storedFormData);
-  console.log('formData: ', formData);
+  // console.log('formData: ', formData);
 
   // search for correct row, using key
   const index = storedFormData.findIndex(data => data.key === formData.key);
-  console.log('index: ', index);
+  // console.log('index: ', index);
   // console.log(storedFormData.length);
 
   if (index < 0) {
@@ -30,7 +29,7 @@ function deleteData(formData) {
   }
 
   storedFormData.splice(index, 1);
-  console.log('storedFormData', storedFormData);
+  // console.log('storedFormData', storedFormData);
 
   localStorage.setItem('moneyTrackerFormData', JSON.stringify(storedFormData));
 }
@@ -55,5 +54,5 @@ function cancelDeletion() {
   deleteRowModal.close();
 }
 
-deleteNoButton.addEventListener('click', cancelDeletion);
 deleteYesButton.addEventListener('click', deleteRowOfSpendingData);
+deleteNoButton.addEventListener('click', cancelDeletion);
