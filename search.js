@@ -144,7 +144,8 @@ function editTransactionRow() {
 }
 
 function deleteTransactionRow() {
-  return;
+  getDeletionKeyValue(this.parentNode);
+  deleteRowModal.showModal();
 }
 
 searchButton.addEventListener('click', toggleSearchForm);
