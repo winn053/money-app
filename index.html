@@ -7,8 +7,10 @@
     <title>Money Tracker</title>
   </head>
   <body>
-    <main>
+    <header>
       <h1>Money Tracker</h1>
+    </header>
+    <main>
       <section class="enter-amount">
         <h2 class="amount-form-title">Enter Amount Spent</h2>
         <br />
@@ -21,6 +23,7 @@
               id="amount"
               pattern="^\$?\d+(\.\d{2})?$"
               value=""
+              placeholder="0.00"
               data-type="currency"
               required
             />
@@ -43,6 +46,7 @@
             <textarea
               name="spend-description"
               id="spend-description"
+              placeholder="Add a brief memo (optional)"
             ></textarea>
           </div>
           <div class="form-button">
@@ -107,8 +111,8 @@
               <th>Type</th>
               <th>Date</th>
               <th>Description</th>
-              <th></th>
-              <th></th>
+              <th hidden></th>
+              <th hidden></th>
             </tr>
           </thead>
           <tbody id="search-table-body"></tbody>

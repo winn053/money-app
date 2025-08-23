@@ -133,9 +133,16 @@ function getSpendingAmount() {
     0
   );
 
-  console.log('Get spending amount = ', totalSpent);
+  // console.log('Get spending amount = ', totalSpent);
 
   totalSpendingOutput.textContent = `$${totalSpent}`;
+
+  console.log(
+    new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(totalSpent)
+  );
 }
 
 form.addEventListener('submit', submitSpendingForm);

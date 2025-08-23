@@ -20,7 +20,9 @@ function toggleSearchForm() {
 function doSearch(formData, savedData) {
   let amountFilter = savedData;
   if (formData.amount !== '') {
-    amountFilter = amountFilter.filter(data => data.amount === formData.amount);
+    amountFilter = amountFilter.filter(
+      data => data.amount.includes(formData.amount) === true
+    );
   }
   if (formData.source !== 'any') {
     amountFilter = amountFilter.filter(data => data.source === formData.source);
@@ -84,7 +86,13 @@ function startSearch(e) {
       row.appendChild(cell);
 
       cell = document.createElement('td');
-      cellText = document.createTextNode(searchData[i].amount);
+      cellText = document.createTextNode(
+        new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }).format(searchData[i].amount)
+      );
+      // cell.setAttribute('style', 'text-align: right');
       cell.appendChild(cellText);
       row.appendChild(cell);
 

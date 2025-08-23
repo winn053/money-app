@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
   margin: 0;
@@ -7,76 +7,147 @@
 }
 
 :root {
+  --headers-main-text-color: green;
+  --highlight-color: lightgreen;
+  --muted: #9fb0d0;
   --element-font-family: 'Roboto', sans-serif;
 }
 
-h1,
-h2 {
-  color: green;
-  font-family: 'DM Serif Text', serif;
+body {
+  background-color: #dbe5de;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%2395ac92' fill-opacity='0.18' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+header {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  z-index: 5;
+  backdrop-filter: saturate(140%) blur(6px);
+  background: linear-gradient(
+    180deg,
+    rgba(11, 32, 20, 0.9),
+    rgba(11, 32, 20, 0.6)
+  );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 h1 {
+  color: rgb(8, 181, 8);
+  font-family: 'DM Serif Text', serif;
   text-align: center;
-  margin: 50px;
+  margin: 0;
 }
 
 main {
   font-family: var(--element-font-family);
-  margin-left: 25%;
+  margin-left: 15%;
   padding: 20px;
-  width: 50%;
+  width: 70%;
   min-height: calc(100vh - 40px);
 }
 
 h2 {
+  color: var(--headers-main-text-color);
+  font-family: 'Lora', serif;
+  font-weight: 500;
   margin-top: 20px;
 }
 
 button,
 input,
 select,
-option,
 textarea {
   font-family: var(--element-font-family);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.3);
+  outline: none;
+  font-size: 16px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: lightblue;
+  box-shadow: 0 0 0 4px rgba(173, 216, 230, 0.4);
+}
+
+button {
+  /* display: inline-flex;
+  align-items: center;
+  gap: 0.5rem; */
+  margin-top: 0.8rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: linear-gradient(180deg, green, rgb(27, 157, 27));
+  /* opacity: 0.6; */
+  color: rgb(219, 239, 219);
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+}
+
+button:hover {
+  filter: brightness(1.05);
 }
 
 #spending-form,
 #search-form {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  gap: 1rem;
 }
 
-#spending-form button {
+/* #spending-form button {
   padding: 3px;
   margin-top: 15px;
   height: fit-content;
-}
+} */
 
 .total-spending {
   display: flex;
-  justify-content: space-between;
-  margin: 20px inherit;
-  width: 200px;
+  justify-content: left;
+  min-width: 70%;
+  gap: 1rem;
+  /* margin-right: 2rem; */
 }
 
-#total-spending-button,
+.total-spending p {
+  padding-top: 1.5rem;
+}
+
+#search-div {
+  margin-top: 1.5rem;
+}
+
+/* #total-spending-button,
 #total-spending-output {
   margin: 20px inherit;
   padding: 3px;
-}
+} */
 
-.search button {
+/* .search button {
   margin: 20px inherit;
   padding: 3px;
-}
+} */
 
 table,
 tbody,
 th,
 td {
   border: none;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid gray;
   border-collapse: collapse;
 }
 
@@ -94,11 +165,17 @@ th {
 }
 
 tbody tr:hover {
-  background-color: lightgreen;
+  background-color: var(--highlight-color);
+}
+
+/* Amounts look better when aligned to the right in the table cell */
+th:first-of-type,
+tr > td:nth-of-type(2) {
+  text-align: right;
 }
 
 tr button {
-  padding: 3px;
+  padding: 0.2rem 1rem;
   margin: 3px;
 }
 
@@ -119,4 +196,17 @@ dialog {
 
 dialog::backdrop {
   background-color: rgba(0, 128, 0, 0.5); /* Dim the background */
+}
+
+@media (max-width: 900px) {
+  #spending-form,
+  #search-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .total-spending {
+    justify-content: space-between;
+  }
 }
