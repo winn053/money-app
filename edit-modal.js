@@ -8,20 +8,17 @@ const editSpendDate = document.getElementById('edit-spend-date');
 const editSpendDesc = document.getElementById('edit-spend-description');
 
 function getEditData(row) {
-  // console.log('getEditData row = ', row);
-  // const editData = row.children.map(() => this.value);
-  // console.log(row.children);
-  editKey.value = row?.children[0].textContent;
-  editAmountInput.value = row?.children[1].textContent;
-  editAmountSourceInput.value = row?.children[2].textContent;
-  editSpendDate.value = row?.children[3].textContent;
-  editSpendDesc.textContent = row?.children[4].textContent;
+  const storedData = getLocalStorage(KEY);
 
-  // console.log(editKey.value);
-  // console.log(editAmountInput.value);
-  // console.log(editAmountSourceInput.value);
-  // console.log(editSpendDate.value);
-  // console.log(editSpendDesc.textContent);
+  const keyNumber = Number(row?.children[0]?.textContent);
+
+  const index = findIndexFromKey(storedData, keyNumber);
+
+  editKey.value = storedData[index].key;
+  editAmountInput.value = storedData[index].amount;
+  editAmountSourceInput.value = storedData[index].source;
+  editSpendDate.value = storedData[index].date;
+  editSpendDesc.textContent = storedData[index].description;
 }
 
 function editModalSubmitHandler(e) {
@@ -44,27 +41,22 @@ function editModalSubmitHandler(e) {
 }
 
 function saveEditFormData(formData) {
-  const storedFormData =
-    JSON.parse(localStorage.getItem('moneyTrackerFormData')) || [];
-
-  // console.log('storedFormData: ', storedFormData);
-  // console.log('formData: ', formData);
-
-  // search for correct row, using key
-  const index = storedFormData.findIndex(data => data.key === formData.key);
-  // console.log('index: ', index);
-  // console.log(storedFormData.length);
-
-  if (index < 0) {
-    throw new Error('error: key not found in data array');
-  } else if (index >= storedFormData.length) {
-    throw new Error('error: out of range of data array');
-  }
+  const storedFormData = getLocalStorage(KEY);
+  const index = findIndexFromKey(storedFormData, formData?.key);
 
   storedFormData.splice(index, 1, formData);
-  // console.log('storedFormData', storedFormData);
 
-  localStorage.setItem('moneyTrackerFormData', JSON.stringify(storedFormData));
+  saveData(KEY, storedFormData);
+}
+
+function findIndexFromKey(dataArray, key) {
+  const index = dataArray.findIndex(data => data.key === key);
+  if (index < 0) {
+    throw new Error('error: key not found in data array');
+  } else if (index >= dataArray.length) {
+    throw new Error('error: out of range of data array');
+  }
+  return index;
 }
 
 function editModalCancelHandler() {

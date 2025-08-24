@@ -21,7 +21,8 @@
               type="text"
               name="amount"
               id="amount"
-              pattern="^\$?\d+(\.\d{2})?$"
+              inputmode="decimal"
+              pattern="^\d+(\.\d{2})?$"
               value=""
               placeholder="0.00"
               data-type="currency"
@@ -72,8 +73,9 @@
                 type="text"
                 name="search-amount"
                 id="search-amount"
-                pattern="^\$?\d+(\.\d{2})?$"
+                pattern="^\d+(\.\d{2})?$"
                 value=""
+                placeholder="0.00"
                 data-type="currency"
               />
             </div>
@@ -111,6 +113,7 @@
               <th>Type</th>
               <th>Date</th>
               <th>Description</th>
+              <!-- Making space for the Edit and Delete buttons -->
               <th hidden></th>
               <th hidden></th>
             </tr>
@@ -129,8 +132,9 @@
                 type="text"
                 name="edit-amount"
                 id="edit-amount"
-                pattern="^\$?\d+(\.\d{2})?$"
+                pattern="^\d+(\.\d{2})?$"
                 value=""
+                placeholder="0.00"
                 data-type="currency"
                 required
               />

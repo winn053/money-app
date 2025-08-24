@@ -53,8 +53,7 @@ function startSearch(e) {
     dateTo: searchTo.value,
   };
 
-  const storedFormData =
-    JSON.parse(localStorage.getItem('moneyTrackerFormData')) || [];
+  const storedFormData = getLocalStorage(KEY);
 
   // console.log(formData.amount);
   // console.log(formData.source);
@@ -144,7 +143,6 @@ function clearSearchTable() {
 }
 
 function editTransactionRow() {
-  // console.log('Edit data: ', this.parentNode);
   getEditData(this.parentNode);
   editModal.showModal();
 }

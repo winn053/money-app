@@ -6,28 +6,36 @@ const spendDesc = document.getElementById('spend-description');
 const totalSpendingButton = document.getElementById('total-spending-button');
 const totalSpendingOutput = document.getElementById('total-spending-output');
 
+const KEY = 'moneyTrackerFormData';
 spendDate.max = new Date().toISOString().split('T')[0];
 
 let currentKey = 0;
 (function () {
-  const storedFormData =
-    JSON.parse(localStorage.getItem('moneyTrackerFormData')) || [];
+  const storedFormData = getLocalStorage(KEY);
 
   if (storedFormData) {
-    currentKey = storedFormData.at(-1)?.key + 1; // one more than current max key
+    currentKey = storedFormData.at(-1).key + 1; // one more than current max key
     // console.log(currentKey);
   }
 })();
+
+function getLocalStorage(key) {
+  const storedData = JSON.parse(localStorage.getItem(key)) || [];
+  if (!storedData) {
+    throw new Error('Error: No local data to be found');
+  }
+  return storedData;
+}
 
 function submitSpendingForm(e) {
   e.preventDefault();
 
   const formData = {
     key: currentKey,
-    amount: amountInput.value,
+    amount: amountInput.value.trim(),
     source: amountSourceInput.value,
     date: spendDate.value,
-    description: spendDesc.value,
+    description: spendDesc.value.trim(),
   };
 
   saveFormData(formData);
@@ -35,14 +43,15 @@ function submitSpendingForm(e) {
 }
 
 function saveFormData(formData) {
-  const storedFormData =
-    JSON.parse(localStorage.getItem('moneyTrackerFormData')) || [];
-
+  const storedFormData = getLocalStorage(KEY);
   storedFormData.push(formData);
 
-  localStorage.setItem('moneyTrackerFormData', JSON.stringify(storedFormData));
-
+  saveData(KEY, storedFormData);
   currentKey++;
+}
+
+function saveData(key, dataToStore) {
+  localStorage.setItem(key, JSON.stringify(dataToStore));
 }
 
 function clearForm() {
@@ -125,24 +134,19 @@ function clearForm() {
 // }
 
 function getSpendingAmount() {
-  const storedFormData =
-    JSON.parse(localStorage.getItem('moneyTrackerFormData')) || [];
+  const storedFormData = getLocalStorage(KEY);
 
   const totalSpent = storedFormData.reduce(
     (total, current) => total + Number(current.amount),
     0
   );
 
-  // console.log('Get spending amount = ', totalSpent);
+  totalSpendingOutput.textContent = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(totalSpent);
 
-  totalSpendingOutput.textContent = `$${totalSpent}`;
-
-  console.log(
-    new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(totalSpent)
-  );
+  console.log('totalSpent = ', totalSpendingOutput.textContent);
 }
 
 form.addEventListener('submit', submitSpendingForm);
