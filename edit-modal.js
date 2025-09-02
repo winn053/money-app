@@ -18,7 +18,7 @@ function getEditData(row) {
   editAmountInput.value = storedData[index].amount;
   editAmountSourceInput.value = storedData[index].source;
   editSpendDate.value = storedData[index].date;
-  editSpendDesc.textContent = storedData[index].description;
+  editSpendDesc.value = storedData[index].description;
 }
 
 function editModalSubmitHandler(e) {
@@ -41,6 +41,7 @@ function editModalSubmitHandler(e) {
 }
 
 function saveEditFormData(formData) {
+  console.log('saving data');
   const storedFormData = getLocalStorage(KEY);
   const index = findIndexFromKey(storedFormData, formData?.key);
 
@@ -59,7 +60,8 @@ function findIndexFromKey(dataArray, key) {
   return index;
 }
 
-function editModalCancelHandler() {
+function editModalCancelHandler(e) {
+  e.preventDefault();
   editModal.close();
 }
 

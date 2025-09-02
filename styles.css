@@ -56,14 +56,12 @@ h2 {
 
 button,
 input,
-select,
-textarea {
+select {
   font-family: var(--element-font-family);
 }
 
 input,
-select,
-textarea {
+select {
   width: 100%;
   padding: 0.7rem 0.8rem;
   border-radius: 8px;
@@ -75,8 +73,7 @@ textarea {
 }
 
 input:focus,
-select:focus,
-textarea:focus {
+select:focus {
   border-color: lightblue;
   box-shadow: 0 0 0 4px rgba(173, 216, 230, 0.4);
 }
