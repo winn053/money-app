@@ -7,17 +7,39 @@ const totalSpendingButton = document.getElementById('total-spending-button');
 const totalSpendingOutput = document.getElementById('total-spending-output');
 
 const KEY = 'moneyTrackerFormData';
-spendDate.max = new Date().toISOString().split('T')[0];
+let currentKeyCounter = null;
 
-let currentKey = 0;
 (function () {
-  const storedFormData = getLocalStorage(KEY);
-
-  if (storedFormData) {
-    currentKey = storedFormData.at(-1).key + 1; // one more than current max key
-    // console.log(currentKey);
-  }
+  setMaxDate();
+  currentKeyCounter = createKeyCounter();
+  clearForm();
 })();
+
+function createKeyCounter() {
+  let currentKey = 0; // Private variable
+  const storedFormData = getLocalStorage(KEY);
+  if (storedFormData) {
+    currentKey = storedFormData.at(-1).key;
+    // console.log('currentKeyCounter', currentKey);
+  }
+  return function () {
+    currentKey++;
+    return currentKey;
+  };
+}
+
+function setMaxDate() {
+  const date = new Date();
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const formattedDate = new Intl.DateTimeFormat('en-US', {
+    timeZone: timeZone,
+    dateStyle: 'short',
+  }).format(date);
+  // console.log(formattedDate);
+  spendDate.max = new Date(Date.parse(formattedDate))
+    .toISOString()
+    .split('T')[0];
+}
 
 function getLocalStorage(key) {
   const storedData = JSON.parse(localStorage.getItem(key)) || [];
@@ -31,7 +53,7 @@ function submitSpendingForm(e) {
   e.preventDefault();
 
   const formData = {
-    key: currentKey,
+    key: currentKeyCounter(),
     amount: amountInput.value.trim(),
     source: amountSourceInput.value,
     date: spendDate.value,
@@ -45,9 +67,9 @@ function submitSpendingForm(e) {
 function saveFormData(formData) {
   const storedFormData = getLocalStorage(KEY);
   storedFormData.push(formData);
-
+  // console.log('saveFormData.key', formData.key);
   saveData(KEY, storedFormData);
-  currentKey++;
+  currentKeyCounter();
 }
 
 function saveData(key, dataToStore) {
@@ -57,7 +79,7 @@ function saveData(key, dataToStore) {
 function clearForm() {
   amountInput.value = '';
   amountSourceInput.selectedIndex = 0;
-  spendDate.value = '';
+  spendDate.value = spendDate.max;
   spendDesc.value = '';
 }
 
@@ -133,21 +155,26 @@ function clearForm() {
 //   input[0].setSelectionRange(caret_pos, caret_pos);
 // }
 
-function getSpendingAmount() {
+function toggleSpendingAmount() {
   const storedFormData = getLocalStorage(KEY);
 
-  const totalSpent = storedFormData.reduce(
-    (total, current) => total + Number(current.amount),
-    0
-  );
+  if (totalSpendingOutput.textContent === '') {
+    const totalSpent = storedFormData.reduce(
+      (total, current) => total + Number(current.amount),
+      0
+    );
 
-  totalSpendingOutput.textContent = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(totalSpent);
+    totalSpendingOutput.textContent = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(totalSpent);
+  } else {
+    totalSpendingOutput.textContent = '';
+  }
 
   console.log('totalSpent = ', totalSpendingOutput.textContent);
 }
 
+spendDate.addEventListener('click', setMaxDate);
 form.addEventListener('submit', submitSpendingForm);
-totalSpendingButton.addEventListener('click', getSpendingAmount);
+totalSpendingButton.addEventListener('click', toggleSpendingAmount);

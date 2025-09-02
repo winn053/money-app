@@ -180,6 +180,7 @@ tr button {
 }
 
 footer {
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
 }
 
@@ -192,6 +193,11 @@ dialog {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-buttons {
+  display: inline-flex;
+  column-gap: 5px;
 }
 
 dialog::backdrop {
