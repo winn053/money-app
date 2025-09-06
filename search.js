@@ -6,6 +6,7 @@ const searchAmount = document.getElementById('search-amount');
 const searchSource = document.getElementById('search-source');
 const searchFrom = document.getElementById('search-from');
 const searchTo = document.getElementById('search-to');
+const searchDescription = document.getElementById('search-description');
 const searchTableSection = document.getElementById('search-table-section');
 const searchTable = document.getElementById('search-table');
 const searchTableBody = document.getElementById('search-table-body');
@@ -19,6 +20,7 @@ function toggleSearchForm() {
 
 function doSearch(formData, savedData) {
   let amountFilter = savedData;
+
   if (formData.amount !== '') {
     amountFilter = amountFilter.filter(
       data => data.amount.includes(formData.amount) === true
@@ -37,20 +39,26 @@ function doSearch(formData, savedData) {
       data => new Date(data.date) <= new Date(formData.dateTo)
     );
   }
+  if (formData.description !== '') {
+    amountFilter = amountFilter.filter(
+      data => data.description.includes(formData.description.trim()) === true
+    );
+  }
   return amountFilter;
 }
 
 function startSearch(e) {
+  e.preventDefault();
+
   let searchData = [];
   clearSearchTable();
-
-  e.preventDefault();
 
   const formData = {
     amount: searchAmount.value,
     source: searchSource.value,
     dateFrom: searchFrom.value,
     dateTo: searchTo.value,
+    description: searchDescription.value,
   };
 
   const storedFormData = getLocalStorage(KEY);
@@ -59,6 +67,7 @@ function startSearch(e) {
   // console.log(formData.source);
   // console.log(formData.dateFrom);
   // console.log(formData.dateTo);
+  // console.log(formData.dateDescription);
 
   // console.log(storedFormData);
 
@@ -66,7 +75,8 @@ function startSearch(e) {
     formData.amount === '' &&
     formData.source === 'any' &&
     formData.dateFrom === '' &&
-    formData.dateTo === ''
+    formData.dateTo === '' &&
+    formData.description === ''
   ) {
     searchData = storedFormData; // shallow copy
   } else {
