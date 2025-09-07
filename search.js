@@ -10,6 +10,7 @@ const searchDescription = document.getElementById('search-description');
 const searchTableSection = document.getElementById('search-table-section');
 const searchTable = document.getElementById('search-table');
 const searchTableBody = document.getElementById('search-table-body');
+const searchTableNotFound = document.getElementById('search-table-not-found');
 
 function toggleSearchForm() {
   searchDiv.hidden = !searchDiv.hidden;
@@ -84,7 +85,7 @@ function startSearch(e) {
     // console.log(searchData);
   }
 
-  if (searchData) {
+  if (searchData.length !== 0) {
     for (let i = 0; i < searchData.length; i++) {
       const row = document.createElement('tr');
 
@@ -134,9 +135,11 @@ function startSearch(e) {
 
       searchTableBody.appendChild(row);
     }
-
-    searchTableSection.hidden = false;
+  } else {
+    searchTableNotFound.hidden = false;
   }
+
+  searchTableSection.hidden = false;
 }
 
 function clearSearchTable() {
@@ -150,6 +153,7 @@ function clearSearchTable() {
   }
 
   searchTableSection.hidden = true;
+  searchTableNotFound.hidden = true;
 }
 
 function editTransactionRow() {
