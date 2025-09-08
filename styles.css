@@ -139,29 +139,33 @@ button:hover {
   padding: 3px;
 } */
 
-table,
-tbody,
-th,
-td {
-  border: none;
-  border-bottom: 1px solid gray;
-  border-collapse: collapse;
-}
-
 table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 th,
 td {
   padding: 5px;
+  border: none;
+  border-bottom: 1px solid gray;
+  /* border-collapse: collapse; */
+}
+
+tr:nth-last-of-type(2) td {
+  border: none;
+}
+
+tr:last-of-type td {
+  border-bottom: none;
+  border-top: 3px solid black;
 }
 
 th {
   text-align: left;
 }
 
-tbody tr:hover {
+tbody tr:not(tr:last-of-type):hover {
   background-color: var(--highlight-color);
 }
 

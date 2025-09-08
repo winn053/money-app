@@ -135,6 +135,37 @@ function startSearch(e) {
 
       searchTableBody.appendChild(row);
     }
+
+    // add total to bottom of table
+    const totalSpent = searchData.reduce(
+      (total, current) => total + Number(current.amount),
+      0
+    );
+    console.log(totalSpent);
+
+    const row = document.createElement('tr');
+
+    // hide a dummy field for needless missing key
+    let cell = document.createElement('td');
+    cell.setAttribute('hidden', 1);
+    row.appendChild(cell);
+
+    cell = document.createElement('td');
+    let cellText = document.createTextNode(
+      new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(totalSpent)
+    );
+    cell.appendChild(cellText);
+    row.appendChild(cell);
+
+    cell = document.createElement('td');
+    cellText = document.createTextNode('Total');
+    cell.appendChild(cellText);
+    row.appendChild(cell);
+
+    searchTableBody.appendChild(row);
   } else {
     searchTableNotFound.hidden = false;
   }
