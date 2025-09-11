@@ -66,7 +66,7 @@ function doSearch(formData, savedData) {
   }
   if (formData.description !== '') {
     amountFilter = amountFilter.filter(
-      data => data.description.includes(formData.description.trim()) === true
+      data => data?.description?.includes(formData.description.trim()) === true
     );
   }
   console.log(amountFilter);
@@ -244,10 +244,46 @@ function createToggleSortAmount() {
   };
 }
 
-const sortAmountOrder = createToggleSortAmount();
+function createToggleSortType() {
+  let sortOrder = false;
+  return function () {
+    sortOrder = !sortOrder;
+    return sortOrder;
+  };
+}
+
+function createToggleSortDate() {
+  let sortOrder = false;
+  return function () {
+    sortOrder = !sortOrder;
+    return sortOrder;
+  };
+}
+
+function createToggleSortCategory() {
+  let sortOrder = false;
+  return function () {
+    sortOrder = !sortOrder;
+    return sortOrder;
+  };
+}
+
+function createToggleSortDescription() {
+  let sortOrder = false;
+  return function () {
+    sortOrder = !sortOrder;
+    return sortOrder;
+  };
+}
+
+const sortOrderAmount = createToggleSortAmount();
+const sortOrderType = createToggleSortType();
+const sortOrderDate = createToggleSortDate();
+const sortOrderCategory = createToggleSortCategory();
+const sortOrderDescription = createToggleSortDescription();
 
 function handleSortAmount() {
-  const order = sortAmountOrder();
+  const order = sortOrderAmount();
   console.log(order);
   console.log(searchData);
 
@@ -260,8 +296,68 @@ function handleSortAmount() {
   }
 }
 
+function handleSortType() {
+  const order = sortOrderType();
+  console.log(order);
+  console.log(searchData);
+
+  if (searchData.length > 0) {
+    sortByType(searchData, order);
+    clearSearchTable();
+    fillSearchTable();
+
+    searchTableSection.hidden = false;
+  }
+}
+
+function handleSortDate() {
+  const order = sortOrderDate();
+  console.log(order);
+  console.log(searchData);
+
+  if (searchData.length > 0) {
+    sortByDate(searchData, order);
+    clearSearchTable();
+    fillSearchTable();
+
+    searchTableSection.hidden = false;
+  }
+}
+
+function handleSortCategory() {
+  const order = sortOrderCategory();
+  console.log(order);
+  console.log(searchData);
+
+  if (searchData.length > 0) {
+    sortByCategory(searchData, order);
+    clearSearchTable();
+    fillSearchTable();
+
+    searchTableSection.hidden = false;
+  }
+}
+
+function handleSortDescription() {
+  const order = sortOrderDescription();
+  console.log(order);
+  console.log(searchData);
+
+  if (searchData.length > 0) {
+    sortByDescription(searchData, order);
+    clearSearchTable();
+    fillSearchTable();
+
+    searchTableSection.hidden = false;
+  }
+}
+
 searchButton.addEventListener('click', toggleSearchForm);
 searchForm.addEventListener('submit', startSearch);
 searchClearButton.addEventListener('click', clearSearchTable);
 
 searchTableAmountSortButton.addEventListener('click', handleSortAmount);
+searchTableTypeSortButton.addEventListener('click', handleSortType);
+searchTableDateSortButton.addEventListener('click', handleSortDate);
+searchTableCategorySortButton.addEventListener('click', handleSortCategory);
+searchTableDescSortButton.addEventListener('click', handleSortDescription);
