@@ -2,6 +2,7 @@ const form = document.getElementById('spending-form');
 const amountInput = document.getElementById('amount');
 const amountSourceInput = document.getElementById('money-type');
 const spendDate = document.getElementById('spend-date');
+const spendCategory = document.getElementById('spend-category');
 const spendDesc = document.getElementById('spend-description');
 const totalSpendingButton = document.getElementById('total-spending-button');
 const totalSpendingOutput = document.getElementById('total-spending-output');
@@ -57,6 +58,7 @@ function submitSpendingForm(e) {
     amount: amountInput.value.trim(),
     source: amountSourceInput.value,
     date: spendDate.value,
+    category: spendCategory.value.trim(),
     description: spendDesc.value.trim(),
   };
 
@@ -80,6 +82,7 @@ function clearForm() {
   amountInput.value = '';
   amountSourceInput.selectedIndex = 0;
   spendDate.value = spendDate.max;
+  spendCategory.value = '';
   spendDesc.value = '';
 }
 

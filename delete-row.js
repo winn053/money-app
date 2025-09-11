@@ -21,6 +21,7 @@ function deleteRowOfSpendingData() {
     amount: '',
     source: 0,
     date: '',
+    category: '',
     description: '',
   };
 

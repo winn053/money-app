@@ -5,6 +5,7 @@ const editKey = document.getElementById('edit-key');
 const editAmountInput = document.getElementById('edit-amount');
 const editAmountSourceInput = document.getElementById('edit-money-type');
 const editSpendDate = document.getElementById('edit-spend-date');
+const editSpendCategory = document.getElementById('edit-spend-category');
 const editSpendDesc = document.getElementById('edit-spend-description');
 
 function getEditData(row) {
@@ -18,6 +19,7 @@ function getEditData(row) {
   editAmountInput.value = storedData[index].amount;
   editAmountSourceInput.value = storedData[index].source;
   editSpendDate.value = storedData[index].date;
+  editSpendCategory.value = storedData[index].category;
   editSpendDesc.value = storedData[index].description;
 }
 
@@ -29,6 +31,7 @@ function editModalSubmitHandler(e) {
     amount: editAmountInput.value,
     source: editAmountSourceInput.value,
     date: editSpendDate.value,
+    category: editSpendCategory.value,
     description: editSpendDesc.value,
   };
 
