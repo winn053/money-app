@@ -13,22 +13,6 @@ const searchTable = document.getElementById('search-table');
 const searchTableBody = document.getElementById('search-table-body');
 const searchTableNotFound = document.getElementById('search-table-not-found');
 
-const searchTableAmountSortButton = document.getElementById(
-  'search-table-amount-sort-button'
-);
-const searchTableTypeSortButton = document.getElementById(
-  'search-table-type-sort-button'
-);
-const searchTableDateSortButton = document.getElementById(
-  'search-table-date-sort-button'
-);
-const searchTableCategorySortButton = document.getElementById(
-  'search-table-category-sort-button'
-);
-const searchTableDescSortButton = document.getElementById(
-  'search-table-desc-sort-button'
-);
-
 let searchData = [];
 
 function toggleSearchForm() {
@@ -39,38 +23,38 @@ function toggleSearchForm() {
 }
 
 function doSearch(formData, savedData) {
-  let amountFilter = savedData;
+  let filteredData = savedData;
 
   if (formData.amount !== '') {
-    amountFilter = amountFilter.filter(
+    filteredData = filteredData.filter(
       data => data.amount.includes(formData.amount) === true
     );
   }
   if (formData.source !== 'any') {
-    amountFilter = amountFilter.filter(data => data.source === formData.source);
+    filteredData = filteredData.filter(data => data.source === formData.source);
   }
   if (formData.dateFrom !== '') {
-    amountFilter = amountFilter.filter(
+    filteredData = filteredData.filter(
       data => new Date(data.date) >= new Date(formData.dateFrom)
     );
   }
   if (formData.dateTo !== '') {
-    amountFilter = amountFilter.filter(
+    filteredData = filteredData.filter(
       data => new Date(data.date) <= new Date(formData.dateTo)
     );
   }
   if (formData.category !== '') {
-    amountFilter = amountFilter.filter(
+    filteredData = filteredData.filter(
       data => data?.category?.includes(formData.category.trim()) === true
     );
   }
   if (formData.description !== '') {
-    amountFilter = amountFilter.filter(
+    filteredData = filteredData.filter(
       data => data?.description?.includes(formData.description.trim()) === true
     );
   }
-  console.log(amountFilter);
-  return amountFilter;
+  // console.log(filteredData);
+  return filteredData;
 }
 
 function fillSearchTable() {
@@ -136,7 +120,7 @@ function fillSearchTable() {
     (total, current) => total + Number(current.amount),
     0
   );
-  console.log(totalSpent);
+  // console.log(totalSpent);
 
   const row = document.createElement('tr');
 
@@ -180,15 +164,6 @@ function startSearch(e) {
 
   const storedFormData = getLocalStorage(KEY);
 
-  // console.log(formData.amount);
-  // console.log(formData.source);
-  // console.log(formData.dateFrom);
-  // console.log(formData.dateTo);
-  // console.log(formData.category);
-  // console.log(formData.Description);
-
-  // console.log(storedFormData);
-
   if (
     formData.amount === '' &&
     formData.source === 'any' &&
@@ -200,7 +175,6 @@ function startSearch(e) {
     searchData = storedFormData; // shallow copy
   } else {
     searchData = doSearch(formData, storedFormData);
-    // console.log(searchData);
   }
 
   if (searchData.length !== 0) {
@@ -236,128 +210,6 @@ function deleteTransactionRow() {
   deleteRowModal.showModal();
 }
 
-function createToggleSortAmount() {
-  let sortOrder = false;
-  return function () {
-    sortOrder = !sortOrder;
-    return sortOrder;
-  };
-}
-
-function createToggleSortType() {
-  let sortOrder = false;
-  return function () {
-    sortOrder = !sortOrder;
-    return sortOrder;
-  };
-}
-
-function createToggleSortDate() {
-  let sortOrder = false;
-  return function () {
-    sortOrder = !sortOrder;
-    return sortOrder;
-  };
-}
-
-function createToggleSortCategory() {
-  let sortOrder = false;
-  return function () {
-    sortOrder = !sortOrder;
-    return sortOrder;
-  };
-}
-
-function createToggleSortDescription() {
-  let sortOrder = false;
-  return function () {
-    sortOrder = !sortOrder;
-    return sortOrder;
-  };
-}
-
-const sortOrderAmount = createToggleSortAmount();
-const sortOrderType = createToggleSortType();
-const sortOrderDate = createToggleSortDate();
-const sortOrderCategory = createToggleSortCategory();
-const sortOrderDescription = createToggleSortDescription();
-
-function handleSortAmount() {
-  const order = sortOrderAmount();
-  console.log(order);
-  console.log(searchData);
-
-  if (searchData.length > 0) {
-    sortByAmount(searchData, order);
-    clearSearchTable();
-    fillSearchTable();
-
-    searchTableSection.hidden = false;
-  }
-}
-
-function handleSortType() {
-  const order = sortOrderType();
-  console.log(order);
-  console.log(searchData);
-
-  if (searchData.length > 0) {
-    sortByType(searchData, order);
-    clearSearchTable();
-    fillSearchTable();
-
-    searchTableSection.hidden = false;
-  }
-}
-
-function handleSortDate() {
-  const order = sortOrderDate();
-  console.log(order);
-  console.log(searchData);
-
-  if (searchData.length > 0) {
-    sortByDate(searchData, order);
-    clearSearchTable();
-    fillSearchTable();
-
-    searchTableSection.hidden = false;
-  }
-}
-
-function handleSortCategory() {
-  const order = sortOrderCategory();
-  console.log(order);
-  console.log(searchData);
-
-  if (searchData.length > 0) {
-    sortByCategory(searchData, order);
-    clearSearchTable();
-    fillSearchTable();
-
-    searchTableSection.hidden = false;
-  }
-}
-
-function handleSortDescription() {
-  const order = sortOrderDescription();
-  console.log(order);
-  console.log(searchData);
-
-  if (searchData.length > 0) {
-    sortByDescription(searchData, order);
-    clearSearchTable();
-    fillSearchTable();
-
-    searchTableSection.hidden = false;
-  }
-}
-
 searchButton.addEventListener('click', toggleSearchForm);
 searchForm.addEventListener('submit', startSearch);
 searchClearButton.addEventListener('click', clearSearchTable);
-
-searchTableAmountSortButton.addEventListener('click', handleSortAmount);
-searchTableTypeSortButton.addEventListener('click', handleSortType);
-searchTableDateSortButton.addEventListener('click', handleSortDate);
-searchTableCategorySortButton.addEventListener('click', handleSortCategory);
-searchTableDescSortButton.addEventListener('click', handleSortDescription);
