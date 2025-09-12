@@ -224,12 +224,19 @@ dialog::backdrop {
 }
 
 @media (max-width: 900px) {
+  main {
+    margin-left: 0;
+    width: 100%;
+  }
   #spending-form,
   #search-form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 1rem;
+  }
+  td {
+    font-size: 10px;
   }
   .total-spending {
     justify-content: space-between;

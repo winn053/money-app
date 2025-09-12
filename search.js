@@ -45,12 +45,18 @@ function doSearch(formData, savedData) {
   }
   if (formData.category !== '') {
     filteredData = filteredData.filter(
-      data => data?.category?.includes(formData.category.trim()) === true
+      data =>
+        data?.category
+          ?.toLowerCase()
+          .includes(formData.category.toLowerCase().trim()) === true
     );
   }
   if (formData.description !== '') {
     filteredData = filteredData.filter(
-      data => data?.description?.includes(formData.description.trim()) === true
+      data =>
+        data?.description
+          ?.toLowerCase()
+          .includes(formData.description.toLowerCase().trim()) === true
     );
   }
   // console.log(filteredData);
