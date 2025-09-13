@@ -47,6 +47,12 @@ main {
   min-height: calc(100vh - 80px);
 }
 
+#file-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+}
+
 h2 {
   color: var(--headers-main-text-color);
   font-family: 'Lora', serif;
@@ -228,6 +234,12 @@ dialog::backdrop {
     margin-left: 0;
     width: 100%;
   }
+
+  #export-button,
+  #import-button {
+    right: 5%;
+  }
+
   #spending-form,
   #search-form {
     display: flex;
@@ -235,9 +247,11 @@ dialog::backdrop {
     justify-content: space-between;
     gap: 1rem;
   }
+
   td {
     font-size: 10px;
   }
+
   .total-spending {
     justify-content: space-between;
   }
