@@ -78,6 +78,10 @@ select {
   transition: box-shadow 0.2s, border-color 0.2s;
 }
 
+label {
+  font-size: 0.9rem;
+}
+
 select {
   min-width: 6rem;
 }
@@ -111,6 +115,7 @@ select:focus {
   cursor: pointer;
   user-select: none;
   text-decoration: none;
+  font-size: 0.9rem;
 }
 
 .button-green:hover {
@@ -233,11 +238,6 @@ dialog::backdrop {
   main {
     margin-left: 0;
     width: 100%;
-  }
-
-  #export-button,
-  #import-button {
-    right: 5%;
   }
 
   #spending-form,

@@ -13,7 +13,20 @@
     <main>
       <div id="file-buttons">
         <button id="export-button" class="button-green">Export JSON</button>
-        <button id="import-button" class="button-green">Import JSON</button>
+        <!-- <button id="import-button" class="button-green">Import JSON</button> -->
+        <label
+          id="input-file-label"
+          class="button-green"
+          for="import-file"
+          title="Import JSON backup"
+        >
+          <input
+            id="import-file"
+            type="file"
+            accept="application/json"
+            hidden
+          />Import JSON
+        </label>
       </div>
       <section class="enter-amount">
         <h2 class="amount-form-title">Enter Amount Spent</h2>
@@ -261,4 +274,5 @@
   <script src="edit-modal.js"></script>
   <script src="delete-row.js"></script>
   <script src="export.js"></script>
+  <script src="import.js"></script>
 </html>
