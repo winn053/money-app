@@ -105,14 +105,14 @@ function fillSearchTable() {
     row.appendChild(cell);
 
     cell = document.createElement('button');
-    cell.className = 'button-green';
+    cell.className = 'btn button-green';
     cellText = document.createTextNode('Edit');
     cell.addEventListener('click', editTransactionRow);
     cell.appendChild(cellText);
     row.appendChild(cell);
 
     cell = document.createElement('button');
-    cell.className = 'button-green';
+    cell.className = 'btn button-green';
     cellText = document.createTextNode('Delete');
     cell.addEventListener('click', deleteTransactionRow);
     cell.appendChild(cellText);
@@ -184,6 +184,7 @@ function startSearch(e) {
   }
 
   if (searchData.length !== 0) {
+    sortByDate(searchData, sortOrderDate());
     fillSearchTable();
   } else {
     searchTableNotFound.hidden = false;

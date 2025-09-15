@@ -105,12 +105,11 @@ select:focus {
   cursor: pointer;
 }
 
-.button-green {
+.btn {
   margin-top: 0.8rem;
   padding: 0.7rem 0.9rem;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  background: linear-gradient(180deg, green, rgb(27, 157, 27));
   color: rgb(219, 239, 219);
   cursor: pointer;
   user-select: none;
@@ -118,8 +117,12 @@ select:focus {
   font-size: 0.9rem;
 }
 
-.button-green:hover {
+.btn:hover {
   filter: brightness(1.05);
+}
+
+.button-green {
+  background: linear-gradient(180deg, green, rgb(27, 157, 27));
 }
 
 #spending-form,
