@@ -125,6 +125,11 @@ select:focus {
   background: linear-gradient(180deg, green, rgb(27, 157, 27));
 }
 
+.button-danger {
+  color: white;
+  background: linear-gradient(180deg, #ff7b7b, #ff5a5a);
+}
+
 #spending-form,
 #search-form {
   display: flex;

@@ -12,7 +12,13 @@
     </header>
     <main>
       <div id="file-buttons">
-        <button id="export-button" class="btn button-green">Export JSON</button>
+        <button
+          class="btn button-danger"
+          id="clear-data-button"
+          title="Clear ALL data"
+        >
+          Reset
+        </button>
         <!-- <button id="import-button" class="btn button-green">Import JSON</button> -->
         <label
           id="input-file-label"
@@ -27,6 +33,7 @@
             hidden
           />Import JSON
         </label>
+        <button id="export-button" class="btn button-green">Export JSON</button>
       </div>
       <section class="enter-amount">
         <h2 class="amount-form-title">Enter Amount Spent</h2>
@@ -275,4 +282,5 @@
   <script src="delete-row.js"></script>
   <script src="export.js"></script>
   <script src="import.js"></script>
+  <script src="delete-all-data.js"></script>
 </html>
