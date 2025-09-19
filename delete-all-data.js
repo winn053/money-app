@@ -5,6 +5,7 @@ function clearAll() {
     const data = [];
     saveData(KEY, data);
     clearSearchTable();
+    updateAllSpendingAmounts();
   }
 }
 

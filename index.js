@@ -4,8 +4,15 @@ const amountSourceInput = document.getElementById('money-type');
 const spendDate = document.getElementById('spend-date');
 const spendCategory = document.getElementById('spend-category');
 const spendDesc = document.getElementById('spend-description');
-const totalSpendingButton = document.getElementById('total-spending-button');
+// const totalSpendingButton = document.getElementById('total-spending-button');
 const totalSpendingOutput = document.getElementById('total-spending-output');
+const lastMonthSpendingOutput = document.getElementById(
+  'last-month-spending-output'
+);
+const cashSpendingOutput = document.getElementById('cash-spending-output');
+const checkSpendingOutput = document.getElementById('check-spending-output');
+const creditSpendingOutput = document.getElementById('credit-spending-output');
+const zelleSpendingOutput = document.getElementById('zelle-spending-output');
 
 const KEY = 'moneyTrackerFormData';
 let currentKeyCounter = null;
@@ -14,6 +21,7 @@ let currentKeyCounter = null;
   setMaxDate();
   currentKeyCounter = createKeyCounter();
   clearForm();
+  updateAllSpendingAmounts();
 })();
 
 function createKeyCounter() {
@@ -64,6 +72,7 @@ function submitSpendingForm(e) {
 
   saveFormData(formData);
   clearForm();
+  updateAllSpendingAmounts();
 }
 
 function saveFormData(formData) {
@@ -178,6 +187,85 @@ function toggleSpendingAmount() {
   console.log('totalSpent = ', totalSpendingOutput.textContent);
 }
 
+function convertToUSDFormat(amountSpent) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(amountSpent);
+}
+
+function getSpendingAmount(source = '', date = false) {
+  const storedFormData = getLocalStorage(KEY);
+  let filteredData = storedFormData;
+
+  if (source === '' && !date) {
+    return storedFormData.reduce(
+      (total, current) => total + Number(current.amount),
+      0
+    );
+  } else if (date) {
+    const currentDate = new Date();
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    const oneMonthAgo = currentDate.toISOString().split('T')[0];
+    // console.log(oneMonthAgo);
+
+    filteredData = filteredData.filter(
+      data => new Date(data.date) >= new Date(oneMonthAgo)
+    );
+
+    return filteredData.reduce(
+      (total, current) => total + Number(current.amount),
+      0
+    );
+  } else {
+    filteredData = filteredData.filter(data => data.source === source);
+
+    return filteredData.reduce(
+      (total, current) => total + Number(current.amount),
+      0
+    );
+  }
+}
+
+function getTotalSpendingAmount() {
+  const totalSpent = getSpendingAmount();
+  totalSpendingOutput.textContent = convertToUSDFormat(totalSpent);
+}
+
+function getMonthlySpendingAmount() {
+  const monthlySpent = getSpendingAmount('', true);
+  lastMonthSpendingOutput.textContent = convertToUSDFormat(monthlySpent);
+}
+
+function getCashSpendingAmount() {
+  const cashSpent = getSpendingAmount('cash');
+  cashSpendingOutput.textContent = convertToUSDFormat(cashSpent);
+}
+
+function getCheckSpendingAmount() {
+  const checkSpent = getSpendingAmount('check');
+  checkSpendingOutput.textContent = convertToUSDFormat(checkSpent);
+}
+
+function getCreditSpendingAmount() {
+  const creditSpent = getSpendingAmount('credit');
+  creditSpendingOutput.textContent = convertToUSDFormat(creditSpent);
+}
+
+function getZelleSpendingAmount() {
+  const zelleSpent = getSpendingAmount('zelle');
+  zelleSpendingOutput.textContent = convertToUSDFormat(zelleSpent);
+}
+
+function updateAllSpendingAmounts() {
+  getTotalSpendingAmount();
+  getMonthlySpendingAmount();
+  getCashSpendingAmount();
+  getCheckSpendingAmount();
+  getCreditSpendingAmount();
+  getZelleSpendingAmount();
+}
+
 spendDate.addEventListener('click', setMaxDate);
 form.addEventListener('submit', submitSpendingForm);
-totalSpendingButton.addEventListener('click', toggleSpendingAmount);
+// totalSpendingButton.addEventListener('click', toggleSpendingAmount);

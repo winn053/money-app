@@ -53,7 +53,8 @@ main {
   gap: 5px;
 }
 
-h2 {
+h2,
+h3 {
   color: var(--headers-main-text-color);
   font-family: 'Lora', serif;
   font-weight: 500;
@@ -90,6 +91,18 @@ input:focus,
 select:focus {
   border-color: lightblue;
   box-shadow: 0 0 0 4px rgba(173, 216, 230, 0.4);
+}
+
+.card-container {
+  display: flex;
+  gap: 10px;
+}
+
+.card {
+  display: block;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 10px;
 }
 
 .button-sort {

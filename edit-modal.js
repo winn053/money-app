@@ -51,6 +51,7 @@ function saveEditFormData(formData) {
   storedFormData.splice(index, 1, formData);
 
   saveData(KEY, storedFormData);
+  updateAllSpendingAmounts();
 }
 
 function findIndexFromKey(dataArray, key) {

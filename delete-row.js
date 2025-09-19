@@ -7,26 +7,18 @@ function getDeletionKeyValue(row) {
   deleteKey.value = row?.children[0].textContent;
 }
 
-function deleteData(formData) {
+function deleteData(id) {
   const storedFormData = getLocalStorage(KEY);
-  const index = findIndexFromKey(storedFormData, formData?.key);
+  const index = findIndexFromKey(storedFormData, id);
 
   storedFormData.splice(index, 1);
   saveData(KEY, storedFormData);
 }
 
-function deleteRowOfSpendingData() {
-  const formData = {
-    key: Number(deleteKey.value),
-    amount: '',
-    source: 0,
-    date: '',
-    category: '',
-    description: '',
-  };
-
-  deleteData(formData);
+function handleDeleteRowOfSpendingData() {
+  deleteData(Number(deleteKey.value));
   deleteRowModal.close();
+  updateAllSpendingAmounts();
 
   const event = new Event('submit');
   searchForm.dispatchEvent(event);
@@ -36,5 +28,5 @@ function cancelDeletion() {
   deleteRowModal.close();
 }
 
-deleteYesButton.addEventListener('click', deleteRowOfSpendingData);
+deleteYesButton.addEventListener('click', handleDeleteRowOfSpendingData);
 deleteNoButton.addEventListener('click', cancelDeletion);
