@@ -1,6 +1,6 @@
 const importButton = document.getElementById('import-file');
 
-async function importFile(e) {
+async function handleImportFile(e) {
   const input = e.target;
   const file = e.target.files[0];
   if (!file) {
@@ -41,7 +41,9 @@ async function importFile(e) {
     alert('Import failed: ' + err.message);
   } finally {
     input.value = '';
+    clearSearchTable();
+    updateAllSpendingAmounts();
   }
 }
 
-importButton.addEventListener('change', importFile);
+importButton.addEventListener('change', handleImportFile);

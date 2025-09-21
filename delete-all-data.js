@@ -1,6 +1,6 @@
 const resetButton = document.getElementById('clear-data-button');
 
-function clearAll() {
+function handleDeleteAllData() {
   if (confirm('This will delete ALL transactions. Continue?')) {
     const data = [];
     saveData(KEY, data);
@@ -9,4 +9,4 @@ function clearAll() {
   }
 }
 
-resetButton.addEventListener('click', clearAll);
+resetButton.addEventListener('click', handleDeleteAllData);
