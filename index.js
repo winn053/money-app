@@ -27,7 +27,7 @@ let currentKeyCounter = null;
 function createKeyCounter() {
   let currentKey = 0; // Private variable
   const storedFormData = getLocalStorage(KEY);
-  if (storedFormData) {
+  if (storedFormData?.length > 0) {
     currentKey = storedFormData.at(-1).key;
     // console.log('currentKeyCounter', currentKey);
   }
