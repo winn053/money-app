@@ -130,7 +130,7 @@ function fillSearchTable() {
 
   const row = document.createElement('tr');
 
-  // hide a dummy field for needless missing key
+  // hide a dummy field for key, which is not being shown
   let cell = document.createElement('td');
   cell.setAttribute('hidden', 1);
   row.appendChild(cell);
@@ -184,7 +184,7 @@ function startSearch(e) {
   }
 
   if (searchData.length !== 0) {
-    sortByDate(searchData, sortOrderDate());
+    sortByDate(searchData, sortOrderDate.reset());
     fillSearchTable();
   } else {
     searchTableNotFound.hidden = false;

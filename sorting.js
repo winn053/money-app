@@ -52,10 +52,11 @@ function sortByDescription(array, order) {
 }
 
 function createToggleSort() {
-  let sortOrder = false;
-  return function () {
-    sortOrder = !sortOrder;
-    return sortOrder;
+  let sortOrder = true;
+  return {
+    toggle: () => (sortOrder = !sortOrder),
+    reset: () => (sortOrder = true),
+    getState: () => sortOrder,
   };
 }
 
@@ -71,19 +72,19 @@ function handleSort(e) {
   if (searchData.length > 0) {
     switch (e.target.innerText) {
       case 'Amount':
-        sortByAmount(searchData, sortOrderAmount());
+        sortByAmount(searchData, sortOrderAmount.toggle());
         break;
       case 'Type':
-        sortByType(searchData, sortOrderType());
+        sortByType(searchData, sortOrderType.toggle());
         break;
       case 'Date':
-        sortByDate(searchData, sortOrderDate());
+        sortByDate(searchData, sortOrderDate.toggle());
         break;
       case 'Category':
-        sortByCategory(searchData, sortOrderCategory());
+        sortByCategory(searchData, sortOrderCategory.toggle());
         break;
       case 'Description':
-        sortByDescription(searchData, sortOrderDescription());
+        sortByDescription(searchData, sortOrderDescription.toggle());
         break;
       default:
         throw Error('Missing sort element innerText');
